@@ -98,8 +98,21 @@ public:
     void cancelTicket()
     {
         int cId;
-        cout << "Enter Passenger ID to be cancelled:";
-        cin >> cId;
+        while (true)
+            {
+                cout << "Enter the Passenger ID to be cancelled: ";
+                cin >> cId;
+                if (cin.fail())
+                {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Error: Input is not an integer. Please try again.\n";
+                }
+                else
+                {
+                    break;
+                }
+            }
         for (auto it = confirmedTickets.begin(); it != confirmedTickets.end(); it++)
         {
             if (it->first == cId)
@@ -280,8 +293,21 @@ public:
             cout << "1. Book RAC\n";
             cout << "2. Go Back\n";
             int ch;
-            cout << "Enter your choice:";
-            cin >> ch;
+            while (true)
+            {
+                cout << "Enter your choice: ";
+                cin >> ch;
+                if (cin.fail())
+                {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Error: Input is not an integer. Please try again.\n";
+                }
+                else
+                {
+                    break;
+                }
+            }
             switch (ch)
             {
             case 1:
@@ -308,8 +334,21 @@ public:
             cout << "1. Book in Waiting List\n";
             cout << "2. Go Back\n";
             int ch;
-            cout << "Enter your choice:";
-            cin >> ch;
+            while (true)
+            {
+                cout << "Enter your choice: ";
+                cin >> ch;
+                if (cin.fail())
+                {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Error: Input is not an integer. Please try again.\n";
+                }
+                else
+                {
+                    break;
+                }
+            }
             switch (ch)
             {
             case 1:
@@ -359,8 +398,21 @@ public:
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cout << "Enter your name:";
                 getline(cin, name);
-                cout << "Enter the age:";
-                cin >> age;
+                while (true)
+                {
+                    cout << "Enter your age: ";
+                    cin >> age;
+                    if (cin.fail())
+                    {
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        cout << "Error: Input is not an integer. Please try again.\n";
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cout << "Enter Gender (M or F):";
                 cin >> gender;
