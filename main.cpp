@@ -9,10 +9,11 @@ class Passenger;
 class Ticket;
 class Main;
 
+int id = 0;
+
 class Passenger
 {
 public:
-    static int id;
     string name;
     int age;
     char gender;
@@ -20,17 +21,17 @@ public:
     int passengerId;
     string alloted;
     int seatNumber;
-    Passenger(string name = " ", int age = 0, char gender = ' ', string berthPreferance = " ")
+    Passenger(string name = " ", int age = 0, char gender = ' ', string berthPreferance = " ", int id = 0)
     {
         this->name = name;
         this->age = age;
         this->gender = gender;
         this->berthPreferance = berthPreferance;
         this->passengerId = id;
-        id = id + 1;
+
     }
 };
-int Passenger::id = 1;
+
 
 class Ticket
 {
@@ -167,7 +168,7 @@ public:
                     middlePositions.erase(middlePositions.begin());
                     middleBerths--;
                 }
-                else
+                else if (upperBerths > 0 && p.berthPreferance == "upper")
                 {
                     confirmedTickets[id].alloted = "upper";
                     confirmedTickets[id].seatNumber = upperPositions[0];
@@ -221,71 +222,71 @@ class Main
 {
 public:
     Ticket ticket;
-    void bookTicket(Passenger &p)
+    void bookTicket(Passenger *p)
     {
-        if ((p.berthPreferance == "lower" && ticket.lowerBerths > 0) || (p.berthPreferance == "middle" && ticket.middleBerths > 0) || (p.berthPreferance == "upper" && ticket.upperBerths > 0))
+        if ((p->berthPreferance == "lower" && ticket.lowerBerths > 0) || (p->berthPreferance == "middle" && ticket.middleBerths > 0) || (p->berthPreferance == "upper" && ticket.upperBerths > 0))
         {
             cout << "\nPreferred Berth Available";
-            if (p.berthPreferance == "lower")
+            if (p->berthPreferance == "lower")
             {
 
-                p.alloted = p.berthPreferance;
+                p->alloted = p->berthPreferance;
                 ticket.lowerBerths--;
-                p.seatNumber = ticket.lowerPositions[0];
+                p->seatNumber = ticket.lowerPositions[0];
                 ticket.lowerPositions.erase(ticket.lowerPositions.begin());
-                ticket.confirmedTickets[p.passengerId] = p;
-                cout << "\nBooked Succesfully with seat number " << p.seatNumber << " " << p.alloted << endl;
+                ticket.confirmedTickets[p->passengerId] = *p;
+                cout << "\nBooked Succesfully with seat number " << p->seatNumber << " " << p->alloted << endl;
             }
-            else if (p.berthPreferance == "middle")
+            else if (p->berthPreferance == "middle")
             {
 
-                p.alloted = p.berthPreferance;
+                p->alloted = p->berthPreferance;
                 ticket.middleBerths--;
-                p.seatNumber = ticket.middlePositions[0];
+                p->seatNumber = ticket.middlePositions[0];
                 ticket.middlePositions.erase(ticket.middlePositions.begin());
-                ticket.confirmedTickets[p.passengerId] = p;
-                cout << "\nBooked Succesfully with seat number " << p.seatNumber << " " << p.alloted << endl;
+                ticket.confirmedTickets[p->passengerId] = *p;
+                cout << "\nBooked Succesfully with seat number " << p->seatNumber << " " << p->alloted << endl;
             }
-            else if (p.berthPreferance == "upper")
+            else if (p->berthPreferance == "upper")
             {
 
-                p.alloted = p.berthPreferance;
+                p->alloted = p->berthPreferance;
                 ticket.upperBerths--;
-                p.seatNumber = ticket.upperPositions[0];
+                p->seatNumber = ticket.upperPositions[0];
                 ticket.upperPositions.erase(ticket.upperPositions.begin());
-                ticket.confirmedTickets[p.passengerId] = p;
-                cout << "\nBooked Succesfully with seat number " << p.seatNumber << " " << p.alloted << endl;
+                ticket.confirmedTickets[p->passengerId] = *p;
+                cout << "\nBooked Succesfully with seat number " << p->seatNumber << " " << p->alloted << endl;
             }
         }
         else if (ticket.lowerBerths > 0)
         {
             cout << "\nPreferred Berth Not Available";
-            p.alloted = "lower";
+            p->alloted = "lower";
             ticket.lowerBerths--;
-            p.seatNumber = ticket.lowerPositions[0];
+            p->seatNumber = ticket.lowerPositions[0];
             ticket.lowerPositions.erase(ticket.lowerPositions.begin());
-            ticket.confirmedTickets[p.passengerId] = p;
-            cout << "\nBooked Succesfully with seat number " << p.seatNumber << " " << p.alloted << endl;
+            ticket.confirmedTickets[p->passengerId] = *p;
+            cout << "\nBooked Succesfully with seat number " << p->seatNumber << " " << p->alloted << endl;
         }
         else if (ticket.middleBerths > 0)
         {
             cout << "\nPreferred Berth Not Available";
-            p.alloted = "middle";
+            p->alloted = "middle";
             ticket.middleBerths--;
-            p.seatNumber = ticket.middlePositions[0];
+            p->seatNumber = ticket.middlePositions[0];
             ticket.middlePositions.erase(ticket.middlePositions.begin());
-            ticket.confirmedTickets[p.passengerId] = p;
-            cout << "\nBooked Succesfully with seat number " << p.seatNumber << " " << p.alloted << endl;
+            ticket.confirmedTickets[p->passengerId] = *p;
+            cout << "\nBooked Succesfully with seat number " << p->seatNumber << " " << p->alloted << endl;
         }
         else if (ticket.upperBerths > 0)
         {
             cout << "\nPreferred Berth Not Available";
-            p.alloted = "upper";
+            p->alloted = "upper";
             ticket.upperBerths--;
-            p.seatNumber = ticket.upperPositions[0];
+            p->seatNumber = ticket.upperPositions[0];
             ticket.upperPositions.erase(ticket.upperPositions.begin());
-            ticket.confirmedTickets[p.passengerId] = p;
-            cout << "\nBooked Succesfully with seat number " << p.seatNumber << " " << p.alloted << endl;
+            ticket.confirmedTickets[p->passengerId] = *p;
+            cout << "\nBooked Succesfully with seat number " << p->seatNumber << " " << p->alloted << endl;
         }
         else if (ticket.rac > 0)
         {
@@ -312,13 +313,13 @@ public:
             {
             case 1:
             {
-                p.alloted = "RAC";
+                p->alloted = "RAC";
                 ticket.rac--;
-                p.seatNumber = ticket.racPositions[0];
+                p->seatNumber = ticket.racPositions[0];
                 ticket.racPositions.erase(ticket.racPositions.begin());
-                ticket.confirmedTickets[p.passengerId] = p;
-                ticket.racPassengers.push(p.passengerId);
-                cout << "\nBooked RAC with seat number " << p.seatNumber << " " << p.alloted << endl;
+                ticket.confirmedTickets[p->passengerId] = *p;
+                ticket.racPassengers.push(p->passengerId);
+                cout << "\nBooked RAC with seat number " << p->seatNumber << " " << p->alloted << endl;
             }
             break;
             case 2:
@@ -353,13 +354,13 @@ public:
             {
             case 1:
             {
-                p.alloted = "Waiting List";
+                p->alloted = "Waiting List";
                 ticket.waitingList--;
-                p.seatNumber = ticket.waitingListPositions[0];
+                p->seatNumber = ticket.waitingListPositions[0];
                 ticket.waitingListPositions.erase(ticket.waitingListPositions.begin());
-                ticket.confirmedTickets[p.passengerId] = p;
-                ticket.waitingListPassengers.push(p.passengerId);
-                cout << "\nBooked in waiting List " << p.seatNumber << " " << p.alloted << endl;
+                ticket.confirmedTickets[p->passengerId] = *p;
+                ticket.waitingListPassengers.push(p->passengerId);
+                cout << "\nBooked in waiting List " << p->seatNumber << " " << p->alloted << endl;
             }
             break;
             case 2:
@@ -414,14 +415,27 @@ public:
                     }
                 }
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "Enter Gender (M or F):";
-                cin >> gender;
+                while (true)
+                {
+                    cout << "Enter Gender (M or F):";
+                    cin >> gender;
+                    if(gender=='M' || gender=='F' || gender=='m' || gender=='f')
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        cout << "Error: Gender should be either M or F (Not Case Sensitive)\n";
+                    }
+                }
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cout << "Enter Berth Preferance (lower or middle or upper):";
                 getline(cin, berthPreferance);
-
-                Passenger p(name, age, gender, berthPreferance);
-                bookTicket(p);
+                id = id + 1;
+                Passenger p(name, age, gender, berthPreferance, id);
+                bookTicket(&p);
             }
             break;
 
